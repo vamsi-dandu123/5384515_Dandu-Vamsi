@@ -1,0 +1,47 @@
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'noPrefix' function below.
+#
+# The function accepts STRING_ARRAY words as parameter.
+#
+
+def noPrefix(words):
+    # Write your code here
+    trie = {}
+    
+    for word in words:
+        current = trie
+        for i, ch in enumerate(word):
+            if ch not in current:
+                current[ch] ={}
+            current = current[ch]
+            
+            
+            if "*" in current:
+                print("BAD SET")
+                print(word)
+                return
+        if current:
+            print("BAD SET")
+            print(word)
+            return
+        
+        current["*"] = True
+    print("GOOD SET")
+        
+
+if _name_ == '_main_':
+    n = int(input().strip())
+
+    words = []
+
+    for _ in range(n):
+        words_item = input()
+        words.append(words_item)
+
+    noPrefix(words)

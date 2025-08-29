@@ -1,0 +1,46 @@
+import math
+import os
+import random
+import re
+import sys
+
+def count_swaps(arr, target):
+    swaps = 0
+    n = len(arr)
+    index_map = {v: i for i, v in enumerate(arr)}  
+    
+    for i in range(n):
+        correct_value = target[i]
+        if arr[i] != correct_value:
+            swaps += 1
+            to_swap_idx = index_map[correct_value]
+            
+            
+            arr[i], arr[to_swap_idx] = arr[to_swap_idx], arr[i]
+            
+            
+            index_map[arr[to_swap_idx]] = to_swap_idx
+            index_map[arr[i]] = i
+    return swaps
+
+
+def lilysHomework(arr):
+    # Write your code here
+    asc = sorted(arr) 
+    desc = sorted(arr , reverse=True)
+    
+    return min(count_swaps(arr[:], asc), count_swaps(arr[:], desc))
+
+
+if _name_ == '_main_':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    result = lilysHomework(arr)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()

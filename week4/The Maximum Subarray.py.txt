@@ -1,0 +1,43 @@
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'maxSubarray' function below.
+#
+# The function is expected to return an INTEGER_ARRAY.
+# The function accepts INTEGER_ARRAY arr as parameter.
+#
+
+def maxSubarray(arr):
+    # Write your code here
+    current_sum = max_sum = arr[0]
+    
+    for x in arr[1:]:
+        current_sum= max(x,current_sum+x)
+        max_sum = max(max_sum,current_sum)
+        
+    if all(x <0 for x in arr):
+        max_subseq = max(arr) 
+    else:
+        max_subseq=sum(x for x in arr if x>0)
+    return [max_sum,max_subseq]
+
+if _name_ == '_main_':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    t = int(input().strip())
+
+    for t_itr in range(t):
+        n = int(input().strip())
+
+        arr = list(map(int, input().rstrip().split()))
+
+        result = maxSubarray(arr)
+
+        fptr.write(' '.join(map(str, result)))
+        fptr.write('\n')
+
+    fptr.close()

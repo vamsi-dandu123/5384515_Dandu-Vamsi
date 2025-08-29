@@ -1,0 +1,28 @@
+import heapq
+import sys
+
+def qheap1(queries):
+    heap =[]
+    deleted = set()
+    
+    
+    for q in queries:
+        if q[0] == 1 :
+            heapq.heappush(heap,q[1])
+        elif q[0] == 2:
+            deleted.add(q[1])
+        else:
+            while heap[0] in deleted:
+                deleted.remove(heap[0])
+                heapq.heappop(heap)
+            print(heap[0])
+            
+if _name_ == "_main_":
+    input_data = sys.stdin.read().splitlines()
+    Q = int(input_data[0])
+    queries = []
+    for line in input_data[1:]:
+        parts = list(map(int,line.split()))
+        queries.append(parts)
+        
+    qheap1(queries)

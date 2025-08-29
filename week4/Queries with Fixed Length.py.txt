@@ -1,0 +1,64 @@
+import math
+import os
+import random
+import re
+import sys
+
+def solve(arr, queries):
+    
+    n = len(arr)
+    left = [-1] * n
+    right = [n] * n
+
+    
+    stack = []
+    for i in range(n):
+        while stack and arr[stack[-1]] <= arr[i]:
+            stack.pop()
+        left[i] = stack[-1] if stack else -1
+        stack.append(i)
+
+    
+    stack = []
+    for i in range(n-1, -1, -1):
+        while stack and arr[stack[-1]] < arr[i]:
+            stack.pop()
+        right[i] = stack[-1] if stack else n
+        stack.append(i)
+
+    
+    res = [10**18] * (n+1)
+
+    for i in range(n):
+        length = right[i] - left[i] - 1
+        res[length] = min(res[length], arr[i])
+
+    
+    for k in range(n-1, 0, -1):
+        res[k] = min(res[k], res[k+1])
+
+    return [res[q] for q in queries]
+
+if _name_ == '_main_':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    n = int(first_multiple_input[0])
+
+    q = int(first_multiple_input[1])
+
+    arr = list(map(int, input().rstrip().split()))
+
+    queries = []
+
+    for _ in range(q):
+        queries_item = int(input().strip())
+        queries.append(queries_item)
+
+    result = solve(arr, queries)
+
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()

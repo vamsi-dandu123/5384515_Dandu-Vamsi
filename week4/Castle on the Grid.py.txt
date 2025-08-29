@@ -1,0 +1,94 @@
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'minimumMoves' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. STRING_ARRAY grid
+#  2. INTEGER startX
+#  3. INTEGER startY
+#  4. INTEGER goalX
+#  5. INTEGER goalY
+#
+from collections import deque
+def minimumMoves(grid, startX, startY, goalX, goalY):
+    # Write your code here
+    n = len(grid)
+    visited = [[False]*n for _ in range(n)]
+    q = deque()
+    
+    
+    q.append((startX, startY, 0))
+    visited[startX][startY] = True
+    
+    while q:
+        x, y, moves = q.popleft()
+        
+        
+        if x == goalX and y == goalY:
+            return moves
+        
+        
+        i = x - 1
+        while i >= 0 and grid[i][y] == '.':
+            if not visited[i][y]:
+                visited[i][y] = True
+                q.append((i, y, moves+1))
+            i -= 1
+        
+        
+        i = x + 1
+        while i < n and grid[i][y] == '.':
+            if not visited[i][y]:
+                visited[i][y] = True
+                q.append((i, y, moves+1))
+            i += 1
+        
+       
+        j = y - 1
+        while j >= 0 and grid[x][j] == '.':
+            if not visited[x][j]:
+                visited[x][j] = True
+                q.append((x, j, moves+1))
+            j -= 1
+        
+       
+        j = y + 1
+        while j < n and grid[x][j] == '.':
+            if not visited[x][j]:
+                visited[x][j] = True
+                q.append((x, j, moves+1))
+            j += 1
+    
+
+if _name_ == '_main_':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    grid = []
+
+    for _ in range(n):
+        grid_item = input()
+        grid.append(grid_item)
+
+    first_multiple_input = input().rstrip().split()
+
+    startX = int(first_multiple_input[0])
+
+    startY = int(first_multiple_input[1])
+
+    goalX = int(first_multiple_input[2])
+
+    goalY = int(first_multiple_input[3])
+
+    result = minimumMoves(grid, startX, startY, goalX, goalY)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
