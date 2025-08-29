@@ -1,0 +1,33 @@
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'pangrams' function below.
+#
+# The function is expected to return a STRING.
+# The function accepts STRING s as parameter.
+#
+
+def pangrams(s):
+    s = s.lower()
+    alphabets = set('abcdefghijklmnopqrstuvwxyz')
+    letters_in_s = set(s)
+    
+    if alphabets.issubset(letters_in_s):
+        return "pangram"
+    else:
+        return "not pangram"
+
+if _name_ == '_main_':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = input()
+
+    result = pangrams(s)
+
+    fptr.write(result + '\n')
+
+    fptr.close()
