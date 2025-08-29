@@ -1,0 +1,24 @@
+if _name_ == "_main_":
+    Q = int(input())
+    S = ""          
+    stack = []      
+    
+    for _ in range(Q):
+        ops = input().split()
+        op_type = ops[0]
+        
+        if op_type == "1":  
+            stack.append(S)
+            S += ops[1]
+            
+        elif op_type == "2":  
+            stack.append(S)
+            k = int(ops[1])
+            S = S[:-k]
+            
+        elif op_type == "3": 
+            k = int(ops[1])
+            print(S[k-1])
+        
+        elif op_type == "4":  
+            S = stack.pop()

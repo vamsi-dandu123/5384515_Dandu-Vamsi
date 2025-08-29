@@ -1,0 +1,32 @@
+def reverse(llist):
+    # Write your code here
+    prev = None
+    current = llist
+    
+    while current:
+        nxt = current.next
+        current.next = prev
+        prev = current
+        current = nxt
+    return prev
+
+if _name_ == '_main_':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    tests = int(input())
+
+    for tests_itr in range(tests):
+        llist_count = int(input())
+
+        llist = SinglyLinkedList()
+
+        for _ in range(llist_count):
+            llist_item = int(input())
+            llist.insert_node(llist_item)
+
+        llist1 = reverse(llist.head)
+
+        print_singly_linked_list(llist1, ' ', fptr)
+        fptr.write('\n')
+
+    fptr.close()

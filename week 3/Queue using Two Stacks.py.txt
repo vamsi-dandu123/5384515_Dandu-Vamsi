@@ -1,0 +1,29 @@
+import sys 
+
+in_stack = []
+out_stack = []
+
+def enqueue(x):
+    in_stack.append(x)
+    
+def dequeue():
+    if not out_stack:
+        while in_stack:
+            out_stack.append(in_stack.pop())
+    out_stack.pop()
+def peek():
+    if not out_stack:
+        while in_stack:
+            out_stack.append(in_stack.pop())
+    print(out_stack[-1])
+    
+q = int(sys.stdin.readline().strip())
+for _ in range(q):
+    query = sys.stdin.readline().strip().split()
+    
+    if query[0] == "1":
+        enqueue(int(query[1]))
+    elif query[0] == "2":
+        dequeue()
+    elif query[0] == "3":
+        peek()

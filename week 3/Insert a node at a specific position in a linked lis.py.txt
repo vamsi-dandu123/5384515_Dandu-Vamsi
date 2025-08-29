@@ -1,0 +1,41 @@
+def insertNodeAtPosition(llist, data, position):
+    # Write your code here
+    new_node = SinglyLinkedListNode(data) 
+    
+    
+    if position == 0:
+        new_node.next = llist
+        return new_node
+        
+        
+    current = llist
+    index = 0
+    while index < position - 1 and current is not None:
+            current = current.next
+            index += 1
+    new_node.next = current.next
+    current.next = new_node
+        
+    return llist
+
+if _name_ == '_main_':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    llist_count = int(input())
+
+    llist = SinglyLinkedList()
+
+    for _ in range(llist_count):
+        llist_item = int(input())
+        llist.insert_node(llist_item)
+
+    data = int(input())
+
+    position = int(input())
+
+    llist_head = insertNodeAtPosition(llist.head, data, position)
+
+    print_singly_linked_list(llist_head, ' ', fptr)
+    fptr.write('\n')
+
+    fptr.close()
